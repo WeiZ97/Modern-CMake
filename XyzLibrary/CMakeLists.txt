@@ -2,6 +2,8 @@ file(GLOB XyzSources "${CMAKE_CURRENT_SOURCE_DIR}/sources/*.cpp")
 
 add_library(XyzLibrary SHARED  "")
 
+
+
 target_sources(XyzLibrary
     PRIVATE
         "${CMAKE_CURRENT_SOURCE_DIR}/sources/IXyz.cpp"
@@ -10,25 +12,14 @@ target_sources(XyzLibrary
 
 target_include_directories(XyzLibrary
     PUBLIC 
-        ${CMAKE_CURRENT_SOURCE_DIR}/headers)
+        $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/headers>
+        $<INSTALL_INTERFACE:headers>)
 
 
 set_target_properties(XyzLibrary
     PROPERTIES
         DEBUG_POSTFIX "_d"
         OUTPUT_NAME "Xyz"
-        PUBLIC_HEADER ${CMAKE_CURRENT_SOURCE_DIR}/headers/XyzLibrary.h
-        
-            RUNTIME_OUTPUT_DIRECTORY            ${PROJECT_BINARY_DIR}/bin
-            RUNTIME_OUTPUT_DIRECTORY_DEBUG      ${PROJECT_BINARY_DIR}/bin
-            RUNTIME_OUTPUT_DIRECTORY_RELEASE    ${PROJECT_BINARY_DIR}/bin
-            LIBRARY_OUTPUT_DIRECTORY            ${PROJECT_BINARY_DIR}/lib
-            LIBRARY_OUTPUT_DIRECTORY_DEBUG      ${PROJECT_BINARY_DIR}/lib
-            LIBRARY_OUTPUT_DIRECTORY_RELEASE    ${PROJECT_BINARY_DIR}/lib
-            ARCHIVE_OUTPUT_DIRECTORY            ${PROJECT_BINARY_DIR}/lib
-            ARCHIVE_OUTPUT_DIRECTORY_DEBUG      ${PROJECT_BINARY_DIR}/lib
-            ARCHIVE_OUTPUT_DIRECTORY_RELEASE    ${PROJECT_BINARY_DIR}/lib
-        
     )
 
 target_compile_definitions(XyzLibrary
@@ -53,3 +44,18 @@ target_compile_definitions(XyzLibrary
         __cplusplus
 )
 
+install(
+    TARGETS XyzLibrary
+    EXPORT ${PROJECT_NAME}-target
+    LIBRARY DESTINATION lib
+    ARCHIVE DESTINATION lib
+    RUNTIME DESTINATION bin
+)
+install(
+    FILES
+        ${CMAKE_CURRENT_SOURCE_DIR}/headers/CXyz.h
+        ${CMAKE_CURRENT_SOURCE_DIR}/headers/SXyz.h   
+        ${CMAKE_CURRENT_SOURCE_DIR}/headers/IXyz.h
+    DESTINATION 
+        include        
+)
