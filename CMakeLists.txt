@@ -9,7 +9,6 @@ configure_package_config_file(
     INSTALL_DESTINATION share/xyz
 )
 
-add_subdirectory(XyzExecutable)
 add_subdirectory(XyzLibrary)
 
 
