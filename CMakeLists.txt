@@ -11,7 +11,7 @@ configure_package_config_file(
 
 add_subdirectory(XyzExecutable)
 add_subdirectory(XyzLibrary)
-add_subdirectory(C_XyzExecutable)
+
 
 
 #
