@@ -11,9 +11,10 @@ target_sources(XyzLibrary
         "${CMAKE_CURRENT_SOURCE_DIR}/sources/CXyz.cpp")
 
 target_include_directories(XyzLibrary
-    PUBLIC 
-        $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/headers>
-        $<INSTALL_INTERFACE:headers>)
+    PRIVATE
+        ${CMAKE_CURRENT_SOURCE_DIR}/headers
+    INTERFACE     
+        $<INSTALL_INTERFACE:include>)
 
 
 set_target_properties(XyzLibrary
